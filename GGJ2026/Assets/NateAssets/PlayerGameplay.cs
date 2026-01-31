@@ -89,6 +89,8 @@ public class PlayerGameplay : MonoBehaviour
         {
             CivilianScript hitAI = hit.collider.GetComponent<CivilianScript>();
 
+            Debug.Log("hit" + hitAI.gameObject.name);
+            
             if (hitAI != null)
             {
                 if (_currentHitAI != hitAI)
@@ -152,6 +154,12 @@ public class PlayerGameplay : MonoBehaviour
         if (gameObject.GetComponent<CivilianScript>().isKiller)
         {
             gameObject.GetComponent<KillerScript>().enabled = false;
+        }
+        
+        GameObject[] civilians = GameObject.FindGameObjectsWithTag("Civilian");
+        foreach (var civ in civilians)
+        {
+            civ.GetComponent<CivilianScript>().SetKillableIndicator(false);
         }
         
         // 禁用 PlayerGameplay 脚本

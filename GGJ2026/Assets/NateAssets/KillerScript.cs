@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using PolyPerfect;
 
@@ -20,6 +21,11 @@ public class KillerScript : MonoBehaviour
     private bool _isTimerActive = false;
 
     private CivilianScript _lastNearestAI;
+
+    private void Start()
+    {
+        playerAnimator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -63,7 +69,7 @@ public class KillerScript : MonoBehaviour
 
     void TryKillNearest()
     {
-        if (_lastNearestAI != null)
+        if (_lastNearestAI != null && !_lastNearestAI.isPolice)
         {
             _nextKillTime = Time.time + killCooldown;
 
@@ -101,7 +107,7 @@ public class KillerScript : MonoBehaviour
         foreach (var hitCollider in hitColliders)
         {
             CivilianScript ai = hitCollider.GetComponent<CivilianScript>();
-            if (ai != null)
+            if (ai != null && !ai.isPolice)
             {
                 float dist = Vector3.Distance(transform.position, ai.transform.position);
                 if (dist < minDistance)

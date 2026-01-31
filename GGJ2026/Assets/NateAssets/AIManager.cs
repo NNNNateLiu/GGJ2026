@@ -8,6 +8,8 @@ public class AIManager : MonoBehaviour
 
     [Header("Settings")]
     public string civilianTag = "Civilian";
+    
+    private List<CivilianScript> _allCivilians = new List<CivilianScript>();
 
     private void Awake()
     {
@@ -61,5 +63,19 @@ public class AIManager : MonoBehaviour
             }
         }
         return nearest;
+    }
+    
+    public void SetAllAIMovement(bool canMove)
+    {
+        CivilianScript[] foundCivilians = Object.FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
+        _allCivilians = new List<CivilianScript>(foundCivilians);
+        
+        foreach (var ai in _allCivilians)
+        {
+            if (ai != null)
+            {
+                ai.SetMoving(canMove);
+            }
+        }
     }
 }

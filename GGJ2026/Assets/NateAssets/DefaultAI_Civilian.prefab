@@ -10241,7 +10241,7 @@ MonoBehaviour:
     animationBool: isDead
   species: Human
   stats: {fileID: 11400000, guid: df9751c3f50884146ba79d1e58dd1354, type: 2}
-  wanderZone: 2
+  wanderZone: 10
   awareness: 30
   scent: 30
   constainedToWanderZone: 0
@@ -72673,7 +72673,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 10
+  m_VersionIndex: 19
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

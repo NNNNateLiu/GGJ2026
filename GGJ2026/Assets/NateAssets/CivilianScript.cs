@@ -39,14 +39,18 @@ public class CivilianScript : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
 
     public bool isKiller = false;
+    public bool isPolice = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        int randomNumber = Random.Range(0,outlookPool.transform.childCount);
-        outlookPool.transform.GetChild(0).gameObject.SetActive(false);
-        currentOutlook = outlookPool.transform.GetChild(randomNumber).gameObject;
-        currentOutlook.gameObject.SetActive(true);
+        if (!isPolice)
+        {
+            int randomNumber = Random.Range(0,outlookPool.transform.childCount);
+            outlookPool.transform.GetChild(0).gameObject.SetActive(false);
+            currentOutlook = outlookPool.transform.GetChild(randomNumber).gameObject;
+            currentOutlook.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -99,6 +103,11 @@ public class CivilianScript : MonoBehaviour
         {
             gameObject.GetComponent<KillerScript>().enabled = true;
         }
+
+        if (isPolice)
+        {
+            gameObject.GetComponent<PoliceScript>().enabled = true;
+        }
         
         // 禁用 AI 脚本，防止干扰 ThirdPersonController 的 Move 调用
         this.enabled = false;
@@ -127,5 +136,25 @@ public class CivilianScript : MonoBehaviour
         outlookPool.transform.GetChild(22).gameObject.SetActive(true);
         
         Destroy(civilianScript);
+    }
+    
+    public void SetMoving(bool canMove)
+    {
+        // 如果你有 NavMeshAgent
+        if (TryGetComponent<UnityEngine.AI.NavMeshAgent>(out var agent))
+        {
+            agent.isStopped = !canMove;
+        }
+
+        animator.SetBool("isWalking",false);
+        animator.SetBool("isStanding",false);
+        animator.SetBool("isTexting",false);
+        animator.SetBool("isWaving",false);
+        animator.SetBool("isPoliceOrdered",true);
+        
+        // 禁用或启用 Wander 逻辑脚本
+        // 假设你的游走逻辑在 PolyPerfect.Common_WanderScript 中
+        this.enabled = canMove;
+        
     }
 }
