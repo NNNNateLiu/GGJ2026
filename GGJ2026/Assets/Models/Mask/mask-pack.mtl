@@ -1,0 +1,149 @@
+# Blender 4.1.0 MTL File: 'mask-pack.blend'
+# www.blender.org
+
+newmtl CarnivalMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/CarnivalMask_BaseColor.png
+map_Ns C:/CarnivalMask_Roughness.png
+map_Bump -bm 1.000000 C:/CarnivalMask_Normal.png
+
+newmtl ChineseOperaMask
+Ns 79.999985
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/ChineseOperaMask_BaseColor.png
+
+newmtl DisguiseMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/DisguiseMask_BaseColor.png
+map_Ns C:/DisguiseMask_Roughness.png
+map_Bump -bm 1.000000 C:/DisguiseMask_Normal.png
+
+newmtl DivingMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/DivingMask_BaseColor.png
+map_Ns C:/DivingMask_Roughness.png
+
+newmtl GasMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/GasMask_BaseColor.png
+map_Ns C:/GasMask_Roughness.png
+
+newmtl JapanFoxMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/JapanFoxMask_BaseColor.png
+map_Ns C:/JapanFoxMask_Roughness.png
+map_Bump -bm 1.000000 C:/JapanFoxMask_Normal.png
+
+newmtl JapaneseDemonMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/JapaneseDemonMask_BaseColor.png
+map_Ns C:/JapaneseDemonMask_Roughness.png
+map_Bump -bm 1.000000 C:/JapaneseDemonMask_Normal.png
+
+newmtl Mask_Hockey
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Mask_Hockey_BaseColor.png
+map_Ns C:/Mask_Hockey_Roughness.png
+map_Bump -bm 1.000000 C:/Mask_Hockey_Normal.png
+
+newmtl Material_#2
+Ns 79.999985
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/DivingMask_BaseColor.png
+
+newmtl Material_#2.001
+Ns 79.999985
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl RabbitMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/RabbitMask_BaseColor.png
+map_Ns C:/RabbitMask_Roughness.png
+map_Bump -bm 1.000000 C:/RabbitMask_Normal.png
+
+newmtl TheaterHappyMask
+Ns 79.999985
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/TheaterHappyMask_BaseColor.png
+
+newmtl TheaterSadMask
+Ns 79.999985
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/TheaterSadMask_BaseColor.png
+
+newmtl VenetianMask
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/VenetianMask_BaseColor.png
+map_Ns C:/VenetianMask_Roughness.png
+map_Bump -bm 1.000000 C:/VenetianMask_Normal.png
