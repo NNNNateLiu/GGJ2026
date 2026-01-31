@@ -13,6 +13,8 @@ public class CivilianScript : MonoBehaviour
     [SerializeField] private GameObject outlookPool;
 
     [SerializeField] private GameObject aimedIndicator;
+
+    [SerializeField] private GameObject killableIndicator;
     
     [SerializeField] private Animator animator;
     [SerializeField] private AnimatorOverrideController aiAnimatorController;
@@ -54,6 +56,14 @@ public class CivilianScript : MonoBehaviour
         if (aimedIndicator != null && aimedIndicator.activeSelf != isAimed)
         {
             aimedIndicator.SetActive(isAimed);
+        }
+    }
+    
+    public void SetKillableIndicator(bool visible)
+    {
+        if (killableIndicator != null && killableIndicator.activeSelf != visible)
+        {
+            killableIndicator.SetActive(visible);
         }
     }
 
