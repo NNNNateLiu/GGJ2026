@@ -148,6 +148,11 @@ public class PlayerGameplay : MonoBehaviour
         
         int ignoreLayer = LayerMask.NameToLayer(ignoreRaycastLayerName);
         SetLayerRecursive(possessTarget.gameObject, ignoreLayer);
+
+        if (gameObject.GetComponent<CivilianScript>().isKiller)
+        {
+            gameObject.GetComponent<KillerScript>().enabled = false;
+        }
         
         // 禁用 PlayerGameplay 脚本
         this.enabled = false;

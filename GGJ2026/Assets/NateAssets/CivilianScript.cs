@@ -36,6 +36,8 @@ public class CivilianScript : MonoBehaviour
     [SerializeField] private GameObject playerCameraRoot;
     
     public CinemachineVirtualCamera virtualCamera;
+
+    public bool isKiller = false;
     
     // Start is called before the first frame update
     void Start()
@@ -90,6 +92,11 @@ public class CivilianScript : MonoBehaviour
         virtualCamera.Follow = playerCameraRoot.transform;
         
         SetAimedFeedback(false);
+
+        if (isKiller)
+        {
+            gameObject.GetComponent<KillerScript>().enabled = true;
+        }
         
         // 禁用 AI 脚本，防止干扰 ThirdPersonController 的 Move 调用
         this.enabled = false;

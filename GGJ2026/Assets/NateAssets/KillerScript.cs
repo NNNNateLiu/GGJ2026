@@ -18,52 +18,52 @@ public class KillerScript : MonoBehaviour
 
     void Update()
     {
+        // 先更新指示器，确保 _lastNearestAI 是最新的
+        UpdateNearestIndicator();
+
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // 检查当前系统时间是否已经超过了“下一次允许击杀的时间”
             if (Time.time >= _nextKillTime)
             {
-                TryKill();
+                // 直接尝试击杀指示器指向的那个 AI
+                TryKillNearest();
             }
             else
             {
-                // 可选：在这里可以添加 UI 提示或音效，告诉玩家技能还在 CD 中
-                float remainingCD = _nextKillTime - Time.time;
-                Debug.Log($"击杀技能冷却中，还剩 {remainingCD:F1} 秒");
+                Debug.Log($"击杀技能冷却中，还剩 {(_nextKillTime - Time.time):F1} 秒");
             }
         }
-        
-        UpdateNearestIndicator();
-        
     }
 
-    void TryKill()
+    // 推荐做法：既然已经找到了最近的，直接对它下手
+    void TryKillNearest()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, aiLayer);
-        
-        foreach (var hitCollider in hitColliders)
+        if (_lastNearestAI != null)
         {
-            Common_WanderScript ai = hitCollider.GetComponent<Common_WanderScript>();
+            // 1. 进入冷却
+            _nextKillTime = Time.time + killCooldown;
 
-            if (ai != null)
+            // 2. 玩家动画
+            if (playerAnimator != null)
+                playerAnimator.SetTrigger(killAnimationTrigger);
+
+            // 3. 处理特效与死亡
+            _lastNearestAI.transform.LookAt(new Vector3(transform.position.x, _lastNearestAI.transform.position.y, transform.position.z));
+            
+            if (bloodVFX != null)
             {
-                // 1. 更新冷却时间：当前时间 + 冷却时长
-                _nextKillTime = Time.time + killCooldown;
-
-                // 2. 玩家播放动画
-                if (playerAnimator != null)
-                {
-                    playerAnimator.SetTrigger(killAnimationTrigger);
-                }
-
-                // 3. AI 转向并执行死亡逻辑
-                ai.transform.LookAt(new Vector3(transform.position.x, ai.transform.position.y, transform.position.z));
-                GameObject vfx = Instantiate(bloodVFX, ai.gameObject.transform.GetChild(0));
+                // 获取模型骨骼/子物体生成特效
+                GameObject vfx = Instantiate(bloodVFX, _lastNearestAI.gameObject.transform.GetChild(0));
                 vfx.transform.localPosition = Vector3.zero;
-                ai.Die();
-
-                break; 
+                Destroy(vfx, 3f); // 别忘了销毁特效
             }
+
+            // 4. 执行 AI 死亡
+            _lastNearestAI.SetKillableIndicator(false); // 杀掉前先关掉提示
+            _lastNearestAI.GetComponent<Common_WanderScript>().Die();
+
+            // 5. 立即清空引用，防止下一帧 UpdateNearestIndicator 还没跑时就报错
+            _lastNearestAI = null; 
         }
     }
 
