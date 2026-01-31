@@ -1,6 +1,5 @@
 using UnityEngine;
 using PolyPerfect;
-using Unity.Mathematics;
 
 public class KillerScript : MonoBehaviour
 {
@@ -11,75 +10,97 @@ public class KillerScript : MonoBehaviour
     public GameObject bloodVFX;
 
     [Header("Cooldown Settings")]
-    public float killCooldown = 1.5f; // 冷却时间设置为 1.5 秒
-    private float _nextKillTime = 0f; // 记录下一次允许击杀的时间点
+    public float killCooldown = 1.5f;
+    private float _nextKillTime = 0f;
     
-    private CivilianScript _lastNearestAI; // 记录上一帧最近的 AI
+    [Header("Combo Timer (Combo System)")]
+    [Tooltip("杀人后的宽限时间（X秒）")]
+    public float comboDuration = 5.0f; 
+    private float _currentComboTimer = 0f;
+    private bool _isTimerActive = false;
+
+    private CivilianScript _lastNearestAI;
 
     void Update()
     {
-        // 先更新指示器，确保 _lastNearestAI 是最新的
+        // 1. 更新击杀指示器
         UpdateNearestIndicator();
 
+        // 2. 处理按键击杀
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (Time.time >= _nextKillTime)
             {
-                // 直接尝试击杀指示器指向的那个 AI
                 TryKillNearest();
             }
-            else
-            {
-                Debug.Log($"击杀技能冷却中，还剩 {(_nextKillTime - Time.time):F1} 秒");
-            }
+        }
+
+        // 3. 处理倒计时逻辑
+        HandleComboTimer();
+    }
+
+    void HandleComboTimer()
+    {
+        if (!_isTimerActive) return;
+
+        _currentComboTimer -= Time.deltaTime;
+
+        // 调试用：在控制台显示剩余时间
+        // Debug.Log($"剩余暗杀时间: {_currentComboTimer:F1}");
+
+        if (_currentComboTimer <= 0)
+        {
+            _isTimerActive = false;
+            Debug.Log("<color=red>时间到！由于未能及时击杀，被强制脱离附身！</color>");
+
+            CivilianScript nearestCiv = AIManager.Instance.GetNearestCivilian(gameObject.transform.position)
+                .GetComponent<CivilianScript>();
+            
+            gameObject.GetComponent<PlayerGameplay>().UnPossessed(nearestCiv);
+            nearestCiv.BePossessed();
         }
     }
 
-    // 推荐做法：既然已经找到了最近的，直接对它下手
     void TryKillNearest()
     {
         if (_lastNearestAI != null)
         {
-            // 1. 进入冷却
             _nextKillTime = Time.time + killCooldown;
 
-            // 2. 玩家动画
+            // --- 倒计时核心逻辑开始 ---
+            // 只要完成击杀，就重置计时器并激活它
+            _currentComboTimer = comboDuration;
+            _isTimerActive = true;
+            // --- 倒计时核心逻辑结束 ---
+
             if (playerAnimator != null)
                 playerAnimator.SetTrigger(killAnimationTrigger);
 
-            // 3. 处理特效与死亡
             _lastNearestAI.transform.LookAt(new Vector3(transform.position.x, _lastNearestAI.transform.position.y, transform.position.z));
             
             if (bloodVFX != null)
             {
-                // 获取模型骨骼/子物体生成特效
                 GameObject vfx = Instantiate(bloodVFX, _lastNearestAI.gameObject.transform.GetChild(0));
                 vfx.transform.localPosition = Vector3.zero;
-                Destroy(vfx, 3f); // 别忘了销毁特效
+                Destroy(vfx, 3f);
             }
 
-            // 4. 执行 AI 死亡
-            _lastNearestAI.SetKillableIndicator(false); // 杀掉前先关掉提示
+            _lastNearestAI.SetKillableIndicator(false);
             _lastNearestAI.GetComponent<Common_WanderScript>().Die();
-
-            // 5. 立即清空引用，防止下一帧 UpdateNearestIndicator 还没跑时就报错
             _lastNearestAI = null; 
         }
     }
 
-    void UpdateNearestIndicator()
+    // ... UpdateNearestIndicator 和 OnDrawGizmosSelected 保持不变 ...
+    void UpdateNearestIndicator() 
     {
-        // 获取范围内所有 AI
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, aiLayer);
-        
         CivilianScript nearestAI = null;
         float minDistance = Mathf.Infinity;
 
         foreach (var hitCollider in hitColliders)
         {
             CivilianScript ai = hitCollider.GetComponent<CivilianScript>();
-            
-            // 确保 AI 存在且没死
             if (ai != null)
             {
                 float dist = Vector3.Distance(transform.position, ai.transform.position);
@@ -91,25 +112,14 @@ public class KillerScript : MonoBehaviour
             }
         }
 
-        // 逻辑切换：如果最近的 AI 变了
         if (nearestAI != _lastNearestAI)
         {
-            // 关闭上一个 AI 的提示
-            if (_lastNearestAI != null)
-            {
-                _lastNearestAI.SetKillableIndicator(false);
-            }
-
-            // 开启当前最近 AI 的提示
-            if (nearestAI != null)
-            {
-                nearestAI.SetKillableIndicator(true);
-            }
-
+            if (_lastNearestAI != null) _lastNearestAI.SetKillableIndicator(false);
+            if (nearestAI != null) nearestAI.SetKillableIndicator(true);
             _lastNearestAI = nearestAI;
         }
     }
-    
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
