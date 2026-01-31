@@ -35,8 +35,6 @@ public class CivilianScript : MonoBehaviour
     
     public CinemachineVirtualCamera virtualCamera;
     
-    
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -85,5 +83,10 @@ public class CivilianScript : MonoBehaviour
         
         // 禁用 AI 脚本，防止干扰 ThirdPersonController 的 Move 调用
         this.enabled = false;
+    }
+
+    public void isKilled()
+    {
+        Destroy(gameObject.GetComponent<Common_WanderScript>());
     }
 }

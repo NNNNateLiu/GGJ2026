@@ -1,55 +1,63 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using PolyPerfect;
 using UnityEngine;
+using PolyPerfect;
 
 public class KillerScript : MonoBehaviour
 {
-    public Animator playerAnimator;   // 玩家的动画状态机
-    public float killRange = 2.0f;    // 击杀距离
-    public string killAnimationTrigger = "Kill"; // 玩家攻击动画的 Trigger 名
-    public LayerMask aiLayer;         // 设置 AI 所在的层，优化性能
+    public Animator playerAnimator;
+    public float killRange = 2.0f;
+    public string killAnimationTrigger = "Kill";
+    public LayerMask aiLayer;
+
+    [Header("Cooldown Settings")]
+    public float killCooldown = 1.5f; // 冷却时间设置为 1.5 秒
+    private float _nextKillTime = 0f; // 记录下一次允许击杀的时间点
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TryKill();
+            // 检查当前系统时间是否已经超过了“下一次允许击杀的时间”
+            if (Time.time >= _nextKillTime)
+            {
+                TryKill();
+            }
+            else
+            {
+                // 可选：在这里可以添加 UI 提示或音效，告诉玩家技能还在 CD 中
+                float remainingCD = _nextKillTime - Time.time;
+                Debug.Log($"击杀技能冷却中，还剩 {remainingCD:F1} 秒");
+            }
         }
     }
 
     void TryKill()
     {
-        // 1. 尝试寻找前方的 AI (使用射线检测或球体覆盖检测)
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, aiLayer);
         
         foreach (var hitCollider in hitColliders)
         {
-            // 获取 AI 脚本（这里用基类 Common_WanderScript，这样动物和人都能杀）
             Common_WanderScript ai = hitCollider.GetComponent<Common_WanderScript>();
 
             if (ai != null)
             {
-                // 2. 玩家播放攻击动画
+                // 1. 更新冷却时间：当前时间 + 冷却时长
+                _nextKillTime = Time.time + killCooldown;
+
+                // 2. 玩家播放动画
                 if (playerAnimator != null)
                 {
                     playerAnimator.SetTrigger(killAnimationTrigger);
                 }
 
-                // 3. 让 AI 转向玩家（可选，增加真实感）
+                // 3. AI 转向并执行死亡逻辑
                 ai.transform.LookAt(new Vector3(transform.position.x, ai.transform.position.y, transform.position.z));
-
-                // 4. 触发 AI 死亡
                 ai.Die();
 
-                // 击杀一个后跳出循环，防止一键杀一群
                 break; 
             }
         }
     }
 
-    // 在编辑器里画出攻击范围
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
