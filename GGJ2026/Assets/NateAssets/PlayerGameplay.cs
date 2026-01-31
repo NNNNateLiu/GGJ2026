@@ -13,6 +13,8 @@ public class PlayerGameplay : MonoBehaviour
     [Header("Settings")]
     [Tooltip("射线的最大长度")]
     public float rayDistance = 10f;
+    public float sphereRadius = .5f;
+    
     [Tooltip("AI 所在的层级")]
     public LayerMask aiLayer;
     [Tooltip("射线在编辑器中的颜色")]
@@ -83,24 +85,19 @@ public class PlayerGameplay : MonoBehaviour
 
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, debugRayColor);
 
-        if (Physics.Raycast(ray, out hit, rayDistance, aiLayer))
+        if (Physics.SphereCast(ray.origin, sphereRadius, ray.direction, out hit, rayDistance, aiLayer))
         {
             CivilianScript hitAI = hit.collider.GetComponent<CivilianScript>();
 
             if (hitAI != null)
             {
-                // 如果射中的是新 AI
                 if (_currentHitAI != hitAI)
                 {
-                    // 先关闭旧 AI 的指示器
-                    if (_currentHitAI != null) 
-                        _currentHitAI.SetAimedFeedback(false);
-
-                    // 记录新 AI 并开启指示器
+                    if (_currentHitAI != null) _currentHitAI.SetAimedFeedback(false);
                     _currentHitAI = hitAI;
                     _currentHitAI.SetAimedFeedback(true);
                 }
-                return; // 保持当前状态
+                return;
             }
         }
 
@@ -136,7 +133,7 @@ public class PlayerGameplay : MonoBehaviour
     {
         // 激活所有AI逻辑和组件
         navMeshAgent.enabled = true;
-        StopAllCoroutines();
+        //StopAllCoroutines();
         people_WanderScript.enabled = true;
         
         // 禁用所有Player逻辑和组件；切换摄像机；切换动画机

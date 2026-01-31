@@ -68,8 +68,8 @@ public class CivilianScript : MonoBehaviour
     
         // 禁用所有AI逻辑和组件
         navMeshAgent.isStopped = true;
-        navMeshAgent.enabled = false;
         people_WanderScript.enabled = false;
+        navMeshAgent.enabled = false;
         
         // 激活所有Player逻辑和组件；切换摄像机；切换动画机
         thirdPersonController.enabled = true;
