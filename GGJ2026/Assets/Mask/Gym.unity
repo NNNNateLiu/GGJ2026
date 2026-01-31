@@ -406,6 +406,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcf913d244501946971bde8e8dd8cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &417858185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417858186}
+  - component: {fileID: 417858187}
+  m_Layer: 0
+  m_Name: AIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417858186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417858185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 31.851698, y: -3.285181, z: 39.64229}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &417858187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417858185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ed3166b2753f546ad713d576b8b1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  civilianTag: Civilian
 --- !u!1001 &477910080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1450,6 +1495,7 @@ MonoBehaviour:
     m_Bits: 64
   bloodVFX: {fileID: 1489431029902184, guid: 4430919f14c50f84085d287cbcb2c30e, type: 3}
   killCooldown: 1.5
+  comboDuration: 5
 --- !u!1 &1334105001
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,3 +2063,4 @@ SceneRoots:
   - {fileID: 2138448494}
   - {fileID: 1027097013}
   - {fileID: 1749111065}
+  - {fileID: 417858186}

@@ -11,6 +11,7 @@ using Cinemachine;
 public class CivilianScript : MonoBehaviour
 {
     [SerializeField] private GameObject outlookPool;
+    [SerializeField] private GameObject currentOutlook;
 
     [SerializeField] private GameObject aimedIndicator;
 
@@ -44,7 +45,8 @@ public class CivilianScript : MonoBehaviour
     {
         int randomNumber = Random.Range(0,outlookPool.transform.childCount);
         outlookPool.transform.GetChild(0).gameObject.SetActive(false);
-        outlookPool.transform.GetChild(randomNumber).gameObject.SetActive(true);
+        currentOutlook = outlookPool.transform.GetChild(randomNumber).gameObject;
+        currentOutlook.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -105,5 +107,25 @@ public class CivilianScript : MonoBehaviour
     public void isKilled()
     {
         Destroy(gameObject.GetComponent<Common_WanderScript>());
+        Invoke("DecayToSkeleton",1.5f);
+    }
+
+    private void DecayToSkeleton()
+    {
+        Destroy(navMeshAgent);
+        Destroy(people_WanderScript);
+        Destroy(thirdPersonController);
+        Destroy(playerInput);
+        Destroy(playerGameplay);
+        Destroy(animator);
+        Destroy(aimedIndicator);
+        Destroy(killableIndicator);
+        
+        gameObject.tag = "Untagged";
+        
+        currentOutlook.SetActive(false);
+        outlookPool.transform.GetChild(22).gameObject.SetActive(true);
+        
+        Destroy(civilianScript);
     }
 }

@@ -10121,7 +10121,7 @@ GameObject:
   - component: {fileID: 8529769887203651243}
   m_Layer: 6
   m_Name: man-astronaut
-  m_TagString: Untagged
+  m_TagString: Civilian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10327,6 +10327,7 @@ MonoBehaviour:
   playerGameplay: {fileID: 8529769887203651243}
   playerCameraRoot: {fileID: 5361207193780717467}
   virtualCamera: {fileID: 0}
+  isKiller: 0
 --- !u!114 &1001509825534918047
 MonoBehaviour:
   m_ObjectHideFlags: 0
