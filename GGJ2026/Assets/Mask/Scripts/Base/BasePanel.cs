@@ -20,10 +20,10 @@ namespace Test
             isRemove =  true;
             gameObject.SetActive(false);
             Destroy(gameObject);
-            if (UIManager.Instance.panelDict.ContainsKey(name))
+            /**if (UIManager.Instance.panelDict.ContainsKey(name))
             {
                 UIManager.Instance.panelDict.Remove(name);
-            }
+            }**/
         }
     }
 }
