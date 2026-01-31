@@ -7,6 +7,7 @@ public class KillerScript : MonoBehaviour
     public float killRange = 2.0f;
     public string killAnimationTrigger = "Kill";
     public LayerMask aiLayer;
+    public GameObject bloodVFX;
 
     [Header("Cooldown Settings")]
     public float killCooldown = 1.5f; // 冷却时间设置为 1.5 秒
