@@ -360,10 +360,12 @@ namespace PolyPerfect
             {
                 for (int i = 0; i < allAnimals.Count; i++)
                 {
-                    if (allAnimals[i].dead == true || allAnimals[i] == this || allAnimals[i].species == species || allAnimals[i].dominance <= dominance || allAnimals[i].stealthy || allAnimals[i].gameObject.activeSelf == false)
-                    {
+                    //if (allAnimals[i].dead == true || allAnimals[i] == this || allAnimals[i].species == species || allAnimals[i].dominance <= dominance || allAnimals[i].stealthy || allAnimals[i].gameObject.activeSelf == false)
+                    //{
+                    //    continue;
+                    //}
+                    if (allAnimals[i].dead == false || allAnimals[i] == this)
                         continue;
-                    }
 
                     if (Vector3.Distance(transform.position, allAnimals[i].transform.position) > awareness)
                     {
@@ -1087,6 +1089,24 @@ namespace PolyPerfect
 
             deathEvent.Invoke();
             this.enabled = false;
+            for (int i = 0; i < allAnimals.Count; i++)
+            {
+                if (allAnimals[i] == this)
+                    continue;
+                if (Vector3.Distance(transform.position, allAnimals[i].transform.position) > awareness)
+                {
+                    continue;
+                }
+
+                if (useNavMesh)
+                {
+                    allAnimals[i].RunAwayFromAnimal(this);
+                }
+                else
+                {
+                    allAnimals[i].NonNavMeshRunAwayFromAnimal(this);
+                }
+            }
         }
 
         public void SetPeaceTime(bool peace)
