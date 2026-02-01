@@ -14,6 +14,8 @@ public class KillerScript : MonoBehaviour
     public float killRange = 2.0f;
     public string killAnimationTrigger = "Kill";
     public GameObject bloodVFX;
+    public GameObject killStrikeVFX;
+    public GameObject killStrikeVFXInstance;
     
     public string aiLayerName = "AI";
     private LayerMask aiLayer;
@@ -30,12 +32,14 @@ public class KillerScript : MonoBehaviour
 
     private CivilianScript _lastNearestAI;
     public GameObject killrRemaind;
-
+    
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
         bloodVFX = Resources.Load("Prefab/FX_BloodSplat_01") as GameObject;
+        killStrikeVFX = Resources.Load("Prefab/KillerRemind") as GameObject;
         killrRemaind = Instantiate(Resources.Load<GameObject>("Prefab/CountDown"), this.transform);
+        killrRemaind.GetComponent<CountDown>().contextText = " s to leave";
     }
 
     void Update()
@@ -72,6 +76,8 @@ public class KillerScript : MonoBehaviour
             killrRemaind.GetComponent<CountDown>().ClearText();
             Debug.Log("<color=red>时间到！由于未能及时击杀，被强制脱离附身！</color>");
 
+            Destroy(killStrikeVFXInstance);
+            
             CivilianScript nearestCiv = AIManager.Instance.GetNearestCivilian(gameObject.transform.position)
                 .GetComponent<CivilianScript>();
             
@@ -90,6 +96,16 @@ public class KillerScript : MonoBehaviour
             // --- 倒计时核心逻辑开始 ---
             // 只要完成击杀，就重置计时器并激活它
             _currentComboTimer = comboDuration;
+
+            if (killStrikeVFXInstance == null)
+            {
+                killStrikeVFXInstance = Instantiate(killStrikeVFX, this.transform);
+            }
+            else
+            {
+                killStrikeVFXInstance.transform.GetChild(0).GetComponent<KillerRemind>().IncreaseEffect();
+            }
+            
             _isTimerActive = true;
             // --- 倒计时核心逻辑结束 ---
 

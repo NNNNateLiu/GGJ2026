@@ -34,12 +34,22 @@ public class AIManager : MonoBehaviour
         CivilianScript[] foundCivilians = Object.FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
         _allCivilians = new List<CivilianScript>(foundCivilians);
         _allCivilians = _allCivilians.OrderBy(x => Random.value).ToList();
-        
+
         int player1Index = Random.Range(0, _allCivilians.Count);
+        while (_allCivilians[player1Index].GetComponent<PoliceScript>() != null)
+        {
+            player1Index = Random.Range(0, _allCivilians.Count);
+        }
+        
         _allCivilians[player1Index].BePossessed(true);
         SetLayerRecursive(_allCivilians[player1Index].gameObject, LayerMask.GetMask("Ignore Raycast"));
         
         int player2Index = Random.Range(0, _allCivilians.Count);
+        while (_allCivilians[player2Index].GetComponent<PoliceScript>() != null && player1Index == player2Index)
+        {
+            player2Index = Random.Range(0, _allCivilians.Count);
+        }
+        
         _allCivilians[player2Index].BePossessed(false);
         SetLayerRecursive(_allCivilians[player2Index].gameObject, LayerMask.GetMask("Ignore Raycast"));
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using PolyPerfect;
@@ -18,19 +19,30 @@ public class PoliceScript : MonoBehaviour
     private bool _isFreezing = false;
     private CivilianScript _nearestAI;
 
+    public GameObject policeRemaind;
+
+    private void Start()
+    {
+        policeRemaind = Instantiate(Resources.Load<GameObject>("Prefab/CountDown"), this.transform);
+        policeRemaind.GetComponent<CountDown>().contextText = " s to unfreeze";
+    }
+
     void Update()
     {
         // 1. 按下 E 触发全体禁足
-        
         if ((Input.GetKeyDown(KeyCode.E) && this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1) || (Input.GetKeyDown(KeyCode.K) && !this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1))
         {
-            StartFreeze();
+            if (!_isFreezing)
+            {
+                StartFreeze();
+            }
         }
 
         // 2. 禁足倒计时处理
         if (_isFreezing)
         {
             _freezeTimer -= Time.deltaTime;
+            policeRemaind.GetComponent<CountDown>().SetText(_freezeTimer);
             
             // 禁足期间寻找最近的 AI 进行逮捕交互提示
             UpdateArrestIndicator();
@@ -44,6 +56,7 @@ public class PoliceScript : MonoBehaviour
             if (_freezeTimer <= 0)
             {
                 EndFreeze();
+                policeRemaind.GetComponent<CountDown>().ClearText();
             }
         }
     }
@@ -104,7 +117,7 @@ public class PoliceScript : MonoBehaviour
             _nearestAI = null;
             
             // 逮捕成功后是否立即结束禁足？可选：
-            // EndFreeze(); 
+            EndFreeze(); 
         }
     }
     
