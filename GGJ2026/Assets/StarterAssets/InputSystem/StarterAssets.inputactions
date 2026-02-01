@@ -211,6 +211,17 @@
                 },
                 {
                     "name": "",
+                    "id": "7bdfe73d-3e22-43c5-88b7-e5146455c847",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard2",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c8fcd86e-dcfd-4f88-8e93-b638cdbf3320",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
