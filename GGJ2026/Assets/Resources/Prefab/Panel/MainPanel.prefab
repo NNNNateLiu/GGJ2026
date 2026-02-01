@@ -109,8 +109,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -434.18, y: 140.65953}
-  m_SizeDelta: {x: 868.36, y: -703.8787}
+  m_AnchoredPosition: {x: -428.19, y: 125.59}
+  m_SizeDelta: {x: 868.36, y: -634.9337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2748135920412913131
 CanvasRenderer:
@@ -153,8 +153,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.5
-  m_Text: "1. WASD - \u79FB\u52A8\n2. Space - \u9644\u8EAB\n\uFF08\u6309\u4F4F\u641C\u7D22\u76EE\u6807\uFF0C\u91CA\u653E\u65F6\u8FDB\u884C\u9644\u8EAB\uFF09\n3.
-    E - \u7279\u6B8A\u6280\u80FD\n\uFF08\u62E5\u6709\u7279\u6B8A\u8EAB\u4EFD\u540E\u53EF\u91CA\u653E\u7279\u6B8A\u6280\u80FD\uFF09\n "
+  m_Text: "1. WASD/\u4E0A\u4E0B\u5DE6\u53F3 - \u79FB\u52A8\n2. Q/K - \u9644\u8EAB\n\uFF08\u6309\u4F4F\u641C\u7D22\u76EE\u6807\uFF0C\u91CA\u653E\u65F6\u8FDB\u884C\u9644\u8EAB\uFF09\n3.
+    E/L - \u7279\u6B8A\u6280\u80FD\n\uFF08\u62E5\u6709\u7279\u6B8A\u8EAB\u4EFD\u540E\u53EF\u91CA\u653E\u7279\u6B8A\u6280\u80FD\uFF09\n4.
+    \u5DE6\u53F3Shift - \u8DD1\u6B65\n "
 --- !u!1 &4838228095061717176
 GameObject:
   m_ObjectHideFlags: 0
