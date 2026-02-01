@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class AIManager : MonoBehaviour
 {
@@ -28,7 +29,20 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
-        
+        CivilianScript[] foundCivilians = Object.FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
+        _allCivilians = new List<CivilianScript>(foundCivilians);
+        _allCivilians = _allCivilians.OrderBy(x => Random.value).ToList();
+
+        foreach (var civ in _allCivilians)
+        {
+            if (!civ.isPolice && !civ.gameObject.GetComponent<PlayerGameplay>().enabled)
+            {
+                civ.isKiller = true;
+                civ.gameObject.AddComponent<KillerScript>();
+
+                break;
+            }
+        }
     }
     
     /// <summary>

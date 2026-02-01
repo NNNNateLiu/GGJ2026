@@ -26,6 +26,8 @@ public class KillerScript : MonoBehaviour
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        bloodVFX = Resources.Load("Prefab/FX_BloodSplat_01") as GameObject;
+        aiLayer = LayerMask.NameToLayer("AI");
     }
 
     void Update()
