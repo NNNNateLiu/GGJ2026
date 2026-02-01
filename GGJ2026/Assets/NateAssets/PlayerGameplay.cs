@@ -47,14 +47,11 @@ public class PlayerGameplay : MonoBehaviour
 
     [Header("Player Content")]
     [SerializeField] private ThirdPersonController thirdPersonController;
-    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerGameplay playerGameplay;
-    
-    public CinemachineVirtualCamera virtualCamera;
 
     void Start()
     {
-        //_mainCam = Camera.main;
+
     }
 
     void Update()
@@ -130,6 +127,8 @@ public class PlayerGameplay : MonoBehaviour
         
         // 在射线末端画一个半透明小球，方便确认长度 X 的终点
         Gizmos.DrawWireSphere(origin + forward * rayDistance, 0.2f);
+        
+        
     }
 
     public void UnPossessed(CivilianScript possessTarget)
@@ -141,8 +140,9 @@ public class PlayerGameplay : MonoBehaviour
         
         // 禁用所有Player逻辑和组件；切换摄像机；切换动画机
         thirdPersonController.enabled = false;
-        playerInput.enabled = false;
         playerGameplay.enabled = false;
+        
+        gameObject.GetComponent<ThirdPersonController>()._mainCamera.SetActive(false);
         
         animator.runtimeAnimatorController = aiAnimatorController;
         

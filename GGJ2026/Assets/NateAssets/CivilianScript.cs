@@ -35,8 +35,6 @@ public class CivilianScript : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerGameplay playerGameplay;
     [SerializeField] private GameObject playerCameraRoot;
-    
-    public CinemachineVirtualCamera virtualCamera;
 
     public bool isKiller = false;
     public bool isPolice = false;
@@ -90,13 +88,12 @@ public class CivilianScript : MonoBehaviour
         // 激活所有Player逻辑和组件；切换摄像机；切换动画机
         thirdPersonController.IsPlayer1 = isPlayer1;
         thirdPersonController.enabled = true;
-        playerInput.enabled = true;
         playerInput.ActivateInput();
         playerGameplay.enabled = true;
         
-        animator.runtimeAnimatorController = playerAnimatorController;
+        gameObject.GetComponent<ThirdPersonController>()._mainCamera.SetActive(true);
         
-        virtualCamera.Follow = playerCameraRoot.transform;
+        animator.runtimeAnimatorController = playerAnimatorController;
         
         SetAimedFeedback(false);
 
