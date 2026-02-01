@@ -1,15 +1,22 @@
-using System;
-using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using PolyPerfect;
 using StarterAssets;
+using UnityEditor.Animations;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class KillerScript : MonoBehaviour
 {
     public Animator playerAnimator;
     public float killRange = 2.0f;
     public string killAnimationTrigger = "Kill";
-    public LayerMask aiLayer;
     public GameObject bloodVFX;
+    
+    public string aiLayerName = "AI";
+    private LayerMask aiLayer;
 
     [Header("Cooldown Settings")]
     public float killCooldown = 1.5f;
@@ -27,7 +34,6 @@ public class KillerScript : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
         bloodVFX = Resources.Load("Prefab/FX_BloodSplat_01") as GameObject;
-        aiLayer = LayerMask.NameToLayer("AI");
     }
 
     void Update()
@@ -104,7 +110,7 @@ public class KillerScript : MonoBehaviour
     // ... UpdateNearestIndicator 和 OnDrawGizmosSelected 保持不变 ...
     void UpdateNearestIndicator() 
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, aiLayer);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, LayerMask.GetMask("AI"));
         CivilianScript nearestAI = null;
         float minDistance = Mathf.Infinity;
 
@@ -134,5 +140,14 @@ public class KillerScript : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, killRange);
+    }
+    
+    private void SetLayerRecursive(GameObject obj, int newLayer)
+    {
+        obj.layer = newLayer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursive(child.gameObject, newLayer);
+        }
     }
 }

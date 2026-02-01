@@ -39,6 +39,7 @@ public class AIManager : MonoBehaviour
             {
                 civ.isKiller = true;
                 civ.gameObject.AddComponent<KillerScript>();
+                civ.gameObject.GetComponent<KillerScript>().enabled = false;
 
                 break;
             }
