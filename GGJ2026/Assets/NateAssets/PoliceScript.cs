@@ -21,7 +21,8 @@ public class PoliceScript : MonoBehaviour
     void Update()
     {
         // 1. 按下 E 触发全体禁足
-        if (Input.GetKeyDown(KeyCode.E) && !_isFreezing)
+        
+        if ((Input.GetKeyDown(KeyCode.E) && this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1) || (Input.GetKeyDown(KeyCode.K) && !this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1))
         {
             StartFreeze();
         }
@@ -35,7 +36,7 @@ public class PoliceScript : MonoBehaviour
             UpdateArrestIndicator();
 
             // 逮捕交互：禁足期间再次按 E（或你指定的键）进行逮捕
-            if (Input.GetKeyDown(KeyCode.E))
+            if ((Input.GetKeyDown(KeyCode.Q) && this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1) || (Input.GetKeyDown(KeyCode.L) && !this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1))
             {
                 TryArrest();
             }
@@ -52,6 +53,7 @@ public class PoliceScript : MonoBehaviour
         _isFreezing = true;
         _freezeTimer = freezeDuration;
         AIManager.Instance.SetAllAIMovement(false);
+        AIManager.Instance.isPoliceStartArrest = true;
         Debug.Log("警察指令：全体停止移动！持续20秒。");
     }
 
