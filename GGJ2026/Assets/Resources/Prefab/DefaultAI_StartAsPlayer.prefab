@@ -8621,7 +8621,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlookPool: {fileID: 6401901403496670913}
+  currentOutlook: {fileID: 0}
   aimedIndicator: {fileID: 4303923373592081544}
+  killableIndicator: {fileID: 0}
   animator: {fileID: 6100322883790127922}
   aiAnimatorController: {fileID: 22100000, guid: c2698e8e5bd1f1b47a0e2c731b625efc,
     type: 2}
@@ -8637,6 +8639,8 @@ MonoBehaviour:
   playerGameplay: {fileID: 1579878755018955059}
   playerCameraRoot: {fileID: 90498862014139996}
   virtualCamera: {fileID: 0}
+  isKiller: 0
+  isPolice: 0
 --- !u!114 &3326932479868566009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8725,7 +8729,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7114014915940097694}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -8809,7 +8813,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7114014915940097694}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
   m_Name: 
