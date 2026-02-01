@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CountDown : MonoBehaviour
@@ -19,11 +21,13 @@ public class CountDown : MonoBehaviour
 
     public void SetText(float cd)
     {
-        this.GetComponent<TextMeshPro>().SetText(cd + "s to Leave");
+        this.gameObject.SetActive(true);
+        this.gameObject.GetComponent<TextMeshPro>().SetText(Mathf.RoundToInt(cd) + "s to Leave");
     }
 
     public void ClearText()
     {
-        this.GetComponent<TextMeshPro>().SetText("");
+        this.gameObject.SetActive(false);
+        this.gameObject.GetComponent<TextMeshPro>().SetText("");
     }
 }

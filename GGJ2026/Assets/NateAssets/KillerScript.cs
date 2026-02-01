@@ -29,11 +29,13 @@ public class KillerScript : MonoBehaviour
     private bool _isTimerActive = false;
 
     private CivilianScript _lastNearestAI;
+    public GameObject killrRemaind;
 
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
         bloodVFX = Resources.Load("Prefab/FX_BloodSplat_01") as GameObject;
+        killrRemaind = Instantiate(Resources.Load<GameObject>("Prefab/CountDown"), this.transform);
     }
 
     void Update()
@@ -59,6 +61,7 @@ public class KillerScript : MonoBehaviour
         if (!_isTimerActive) return;
 
         _currentComboTimer -= Time.deltaTime;
+        killrRemaind.GetComponent<CountDown>().SetText(_currentComboTimer);
 
         // 调试用：在控制台显示剩余时间
         // Debug.Log($"剩余暗杀时间: {_currentComboTimer:F1}");
@@ -66,6 +69,7 @@ public class KillerScript : MonoBehaviour
         if (_currentComboTimer <= 0)
         {
             _isTimerActive = false;
+            killrRemaind.GetComponent<CountDown>().ClearText();
             Debug.Log("<color=red>时间到！由于未能及时击杀，被强制脱离附身！</color>");
 
             CivilianScript nearestCiv = AIManager.Instance.GetNearestCivilian(gameObject.transform.position)
