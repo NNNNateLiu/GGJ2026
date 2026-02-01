@@ -59,14 +59,15 @@ public class PlayerGameplay : MonoBehaviour
 
     void Update()
     {
+        bool isPlayer1 = this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1;
         // 1. 当按下 Space 时，持续发射射线进行预览或检测
-        if (Input.GetKey(KeyCode.Space))
+        if ((Input.GetKey(KeyCode.Q) && isPlayer1) || (Input.GetKey(KeyCode.L) && !isPlayer1))
         {
             PerformRaycast();
         }
 
         // 2. 当松开 Space 时，如果射中了 AI，则执行附身
-        if (Input.GetKeyUp(KeyCode.Space))
+        if ((Input.GetKeyUp(KeyCode.Q) && isPlayer1) || (Input.GetKeyUp(KeyCode.L) && !isPlayer1))
         {
             if (_currentHitAI != null)
             {

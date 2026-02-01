@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using PolyPerfect;
+using StarterAssets;
 
 public class KillerScript : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class KillerScript : MonoBehaviour
         UpdateNearestIndicator();
 
         // 2. 处理按键击杀
-        if (Input.GetKeyDown(KeyCode.E))
+        if ((Input.GetKeyDown(KeyCode.E) && this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1) || (Input.GetKeyDown(KeyCode.K) && !this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1))
         {
             if (Time.time >= _nextKillTime)
             {
