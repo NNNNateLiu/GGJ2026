@@ -179,6 +179,9 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            var pos = transform.position;
+            pos.y = 0.09366655f;
+            this.gameObject.transform.position = pos;
         }
 
         private void LateUpdate()
