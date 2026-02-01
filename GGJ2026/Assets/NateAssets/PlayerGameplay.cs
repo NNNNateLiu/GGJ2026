@@ -25,7 +25,7 @@ public class PlayerGameplay : MonoBehaviour
     public Color rayColorWhileAiming = Color.red;
     public Color rayColorIdle = Color.yellow;
 
-    private Camera _mainCam;
+    public Camera _mainCam;
     private CivilianScript _currentHitAI;
     
     [SerializeField] private GameObject outlookPool;
@@ -54,7 +54,7 @@ public class PlayerGameplay : MonoBehaviour
 
     void Start()
     {
-        _mainCam = Camera.main;
+        //_mainCam = Camera.main;
     }
 
     void Update()
