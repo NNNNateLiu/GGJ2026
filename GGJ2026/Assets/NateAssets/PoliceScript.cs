@@ -8,6 +8,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PoliceScript : MonoBehaviour
 {
@@ -67,6 +70,19 @@ public class PoliceScript : MonoBehaviour
         _freezeTimer = freezeDuration;
         AIManager.Instance.SetAllAIMovement(false);
         AIManager.Instance.isPoliceStartArrest = true;
+        
+        CivilianScript[] foundCivilians = FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
+        List<CivilianScript> _allCivilians = new List<CivilianScript>(foundCivilians);
+
+        foreach (var civ in _allCivilians)
+        {
+            if (civ.killableIndicator != null)
+            {
+                civ.killableIndicator.transform.GetChild(0).gameObject.SetActive(false);
+                civ.killableIndicator.transform.GetChild(1).gameObject.SetActive(true);
+            }
+        }
+        
         Debug.Log("警察指令：全体停止移动！持续20秒。");
     }
 
@@ -74,6 +90,22 @@ public class PoliceScript : MonoBehaviour
     {
         _isFreezing = false;
         AIManager.Instance.SetAllAIMovement(true);
+        
+        CivilianScript[] foundCivilians = FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
+        List<CivilianScript> _allCivilians = new List<CivilianScript>(foundCivilians);
+
+        foreach (var civ in _allCivilians)
+        {
+            if (civ.killableIndicator != null)
+            {
+                civ.killableIndicator.transform.GetChild(0).gameObject.SetActive(true);
+                civ.killableIndicator.transform.GetChild(1).gameObject.SetActive(false);
+            }
+        }
+
+        AIManager.Instance.isPoliceStartArrest = false;
+        policeRemaind.GetComponent<CountDown>().ClearText();
+        
         Debug.Log("禁足结束，AI 恢复移动。");
     }
 
@@ -116,9 +148,22 @@ public class PoliceScript : MonoBehaviour
             Destroy(_nearestAI.gameObject);
             _nearestAI = null;
             
+            //1s 后强制转移到其他非玩家非killer的AI身上
+            Invoke("ForceUnPossess",1f);
+            
             // 逮捕成功后是否立即结束禁足？可选：
             EndFreeze(); 
         }
+    }
+
+    public void ForceUnPossess()
+    {
+        CivilianScript nearestCiv = AIManager.Instance.GetNearestCivilian(gameObject.transform.position)
+            .GetComponent<CivilianScript>();
+            
+        gameObject.GetComponent<PlayerGameplay>().UnPossessed(nearestCiv);
+        bool isPlayer1 = gameObject.GetComponent<ThirdPersonController>().IsPlayer1;
+        nearestCiv.BePossessed(isPlayer1);
     }
     
 }

@@ -16,7 +16,7 @@ public class CivilianScript : MonoBehaviour
 
     [SerializeField] private GameObject aimedIndicator;
 
-    [SerializeField] private GameObject killableIndicator;
+    [SerializeField] public GameObject killableIndicator;
     
     [SerializeField] private Animator animator;
     [SerializeField] private AnimatorOverrideController aiAnimatorController;
@@ -152,15 +152,21 @@ public class CivilianScript : MonoBehaviour
             agent.isStopped = !canMove;
         }
 
-        animator.SetBool("isWalking",false);
-        animator.SetBool("isStanding",false);
-        animator.SetBool("isTexting",false);
-        animator.SetBool("isWaving",false);
-        animator.SetBool("isPoliceOrdered",true);
+        if (canMove == false)
+        {
+            animator.SetBool("isWalking",false);
+            animator.SetBool("isStanding",false);
+            animator.SetBool("isTexting",false);
+            animator.SetBool("isWaving",false);
+            animator.SetBool("isPoliceOrdered",true);
+        }
+        else
+        {
+            animator.SetBool("isPoliceOrdered",false);
+        }
         
         // 禁用或启用 Wander 逻辑脚本
         // 假设你的游走逻辑在 PolyPerfect.Common_WanderScript 中
-        this.enabled = canMove;
-        
+        //this.enabled = canMove;
     }
 }

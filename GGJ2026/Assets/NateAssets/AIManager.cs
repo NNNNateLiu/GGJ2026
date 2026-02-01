@@ -31,6 +31,9 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
+        int maxKillerCount = 4;
+        int currentKillerCount = 0;
+        
         CivilianScript[] foundCivilians = Object.FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
         _allCivilians = new List<CivilianScript>(foundCivilians);
         _allCivilians = _allCivilians.OrderBy(x => Random.value).ToList();
@@ -55,13 +58,18 @@ public class AIManager : MonoBehaviour
 
         foreach (var civ in _allCivilians)
         {
-            if (!civ.isPolice && !civ.gameObject.GetComponent<PlayerGameplay>().enabled)
+            if (!civ.isPolice && !civ.gameObject.GetComponent<PlayerGameplay>().enabled && currentKillerCount < maxKillerCount)
             {
                 civ.isKiller = true;
                 civ.gameObject.AddComponent<KillerScript>();
                 civ.gameObject.GetComponent<KillerScript>().enabled = false;
 
-                break;
+                currentKillerCount++;
+                
+                if (currentKillerCount > maxKillerCount)
+                {
+                    break;
+                }
             }
         }
     }

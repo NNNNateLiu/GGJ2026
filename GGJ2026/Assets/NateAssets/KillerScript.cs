@@ -123,21 +123,33 @@ public class KillerScript : MonoBehaviour
 
             _lastNearestAI.SetKillableIndicator(false);
             _lastNearestAI.GetComponent<Common_WanderScript>().Die();
-            _lastNearestAI = null; 
+
+            if (_lastNearestAI)
+            {
+                if (_lastNearestAI.GetComponent<ThirdPersonController>().enabled == true)
+                {
+                    Application.Quit();
+                }
+            }
+            _lastNearestAI = null;
+        }
+        else if (_lastNearestAI != null && !_lastNearestAI.isPolice)
+        {
+            Application.Quit();
         }
     }
 
     // ... UpdateNearestIndicator 和 OnDrawGizmosSelected 保持不变 ...
     void UpdateNearestIndicator() 
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, LayerMask.GetMask("AI"));
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, killRange, LayerMask.GetMask("AI", "Ignore Raycast"));
         CivilianScript nearestAI = null;
         float minDistance = Mathf.Infinity;
 
         foreach (var hitCollider in hitColliders)
         {
             CivilianScript ai = hitCollider.GetComponent<CivilianScript>();
-            if (ai != null && !ai.isPolice)
+            if (ai != null && !ai.isPolice && ai.gameObject != this.gameObject)
             {
                 float dist = Vector3.Distance(transform.position, ai.transform.position);
                 if (dist < minDistance)
