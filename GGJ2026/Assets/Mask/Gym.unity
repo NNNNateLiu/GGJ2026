@@ -530,6 +530,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
+      propertyPath: wanderZone
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
+        type: 3}
       propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -871,6 +876,11 @@ PrefabInstance:
     - target: {fileID: 4296572419076330, guid: 1ec33018d2594f2418de8fbc127479fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
+        type: 3}
+      propertyPath: wanderZone
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
@@ -1551,6 +1561,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
+        type: 3}
+      propertyPath: wanderZone
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 210604453052733154, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
       propertyPath: m_Mesh
@@ -1632,6 +1647,11 @@ PrefabInstance:
     - target: {fileID: 4296572419076330, guid: 1ec33018d2594f2418de8fbc127479fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
+        type: 3}
+      propertyPath: wanderZone
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 210604453052733154, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
@@ -3228,6 +3248,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
+      propertyPath: wanderZone
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
+        type: 3}
       propertyPath: deathEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3481,6 +3506,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1532643539373277733, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
+        type: 3}
+      propertyPath: IsPlayer1
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3351367516570346223, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
         type: 3}
       propertyPath: aiLayer.m_Bits
@@ -3540,6 +3570,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930242704408273236, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
+        type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930242704408273236, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: KeyboardMouse
       objectReference: {fileID: 0}
     - target: {fileID: 7274990743759066870, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
         type: 3}
@@ -3603,6 +3643,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114170963787531966, guid: 1ec33018d2594f2418de8fbc127479fd,
+        type: 3}
+      propertyPath: wanderZone
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 210604453052733154, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
       propertyPath: m_Mesh
@@ -3623,50 +3668,20 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 383288821}
-    - target: {fileID: 2981243241848940257, guid: 1ec33018d2594f2418de8fbc127479fd,
-        type: 3}
-      propertyPath: m_VersionIndex
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 3747464346627123635, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1062168851}
-    - target: {fileID: 5062319857864882871, guid: 1ec33018d2594f2418de8fbc127479fd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5854938152103033744, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1062168851}
-    - target: {fileID: 5854938152103033744, guid: 1ec33018d2594f2418de8fbc127479fd,
-        type: 3}
-      propertyPath: m_VersionIndex
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 7145340482742618418, guid: 1ec33018d2594f2418de8fbc127479fd,
-        type: 3}
-      propertyPath: virtualCamera
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7776599576033423756, guid: 1ec33018d2594f2418de8fbc127479fd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8529769887203651243, guid: 1ec33018d2594f2418de8fbc127479fd,
-        type: 3}
-      propertyPath: virtualCamera
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8529769887203651243, guid: 1ec33018d2594f2418de8fbc127479fd,
         type: 3}
       propertyPath: aiLayer.m_Bits
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3911,6 +3926,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930242704408273236, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
+        type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930242704408273236, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Keyboard2
       objectReference: {fileID: 0}
     - target: {fileID: 7274990743759066870, guid: 39d7fdb1892eed34d9034ec05e40b2f1,
         type: 3}
