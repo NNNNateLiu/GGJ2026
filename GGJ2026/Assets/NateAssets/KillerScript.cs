@@ -64,7 +64,8 @@ public class KillerScript : MonoBehaviour
                 .GetComponent<CivilianScript>();
             
             gameObject.GetComponent<PlayerGameplay>().UnPossessed(nearestCiv);
-            nearestCiv.BePossessed();
+            bool isPlayer1 = gameObject.GetComponent<ThirdPersonController>().IsPlayer1;
+            nearestCiv.BePossessed(isPlayer1);
         }
     }
 

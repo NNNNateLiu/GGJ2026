@@ -72,7 +72,7 @@ public class PlayerGameplay : MonoBehaviour
             if (_currentHitAI != null)
             {
                 UnPossessed(_currentHitAI);
-                _currentHitAI.BePossessed();
+                _currentHitAI.BePossessed(isPlayer1);
                 _currentHitAI = null; // 执行完后清空记录
                 
             }
