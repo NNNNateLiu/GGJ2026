@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class CountDown : MonoBehaviour
 {
+    public string contextText;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class CountDown : MonoBehaviour
     public void SetText(float cd)
     {
         this.gameObject.SetActive(true);
-        this.gameObject.GetComponent<TextMeshPro>().SetText(Mathf.RoundToInt(cd) + "s to Leave");
+        this.gameObject.GetComponent<TextMeshPro>().SetText(Mathf.RoundToInt(cd) + contextText);
     }
 
     public void ClearText()
