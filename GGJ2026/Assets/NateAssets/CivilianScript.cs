@@ -75,7 +75,7 @@ public class CivilianScript : MonoBehaviour
         }
     }
 
-    public void BePossessed()
+    public void BePossessed(bool isPlayer1)
     {
         Debug.Log("BePossessed");
         
@@ -86,8 +86,9 @@ public class CivilianScript : MonoBehaviour
         navMeshAgent.isStopped = true;
         people_WanderScript.enabled = false;
         navMeshAgent.enabled = false;
-        
+
         // 激活所有Player逻辑和组件；切换摄像机；切换动画机
+        thirdPersonController.IsPlayer1 = isPlayer1;
         thirdPersonController.enabled = true;
         playerInput.enabled = true;
         playerInput.ActivateInput();

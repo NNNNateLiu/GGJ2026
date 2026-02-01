@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using PolyPerfect;
+using StarterAssets;
 
 public class KillerScript : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class KillerScript : MonoBehaviour
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        bloodVFX = Resources.Load("Prefab/FX_BloodSplat_01") as GameObject;
+        aiLayer = LayerMask.NameToLayer("AI");
     }
 
     void Update()
@@ -33,7 +36,7 @@ public class KillerScript : MonoBehaviour
         UpdateNearestIndicator();
 
         // 2. 处理按键击杀
-        if (Input.GetKeyDown(KeyCode.E))
+        if ((Input.GetKeyDown(KeyCode.E) && this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1) || (Input.GetKeyDown(KeyCode.K) && !this.gameObject.GetComponent<ThirdPersonController>().IsPlayer1))
         {
             if (Time.time >= _nextKillTime)
             {
@@ -63,7 +66,8 @@ public class KillerScript : MonoBehaviour
                 .GetComponent<CivilianScript>();
             
             gameObject.GetComponent<PlayerGameplay>().UnPossessed(nearestCiv);
-            nearestCiv.BePossessed();
+            bool isPlayer1 = gameObject.GetComponent<ThirdPersonController>().IsPlayer1;
+            nearestCiv.BePossessed(isPlayer1);
         }
     }
 

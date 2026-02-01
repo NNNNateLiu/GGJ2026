@@ -102,16 +102,18 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
 
 #if ENABLE_INPUT_SYSTEM 
-        private PlayerInput _playerInput;
+        public PlayerInput _playerInput;
 #endif
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
-        private GameObject _mainCamera;
+        public GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+
+        public bool IsPlayer1;
 
         private bool IsCurrentDeviceMouse
         {
@@ -125,14 +127,29 @@ namespace StarterAssets
             }
         }
 
+        private void OnEnable()
+        {
+            if (IsPlayer1)
+            {
+                _mainCamera.GetComponent<Camera>().rect = new Rect(0, 0, 0.5f, 1);
+                //_playerInput.currentActionMap = _playerInput.actions.actionMaps[0];
+                _playerInput.SwitchCurrentControlScheme("KeyboardMouse", Keyboard.current);
+            }
+            else
+            {
+                _mainCamera.GetComponent<Camera>().rect = new Rect(0.5f, 0, 0.5f, 1);
+                //_playerInput.currentActionMap = _playerInput.actions.actionMaps[1];
+                _playerInput.SwitchCurrentControlScheme("Keyboard2", Keyboard.current);
+            }
+        }
 
         private void Awake()
         {
             // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
+            //if (_mainCamera == null)
+            //{
+            //    _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+            //}
         }
 
         private void Start()
