@@ -38,6 +38,8 @@ public class CivilianScript : MonoBehaviour
 
     public bool isKiller = false;
     public bool isPolice = false;
+    public GameObject killIcon;
+    public GameObject civiIcon;
     
     // Start is called before the first frame update
     void Start()
@@ -97,9 +99,12 @@ public class CivilianScript : MonoBehaviour
         
         SetAimedFeedback(false);
 
+        civiIcon.SetActive(true);
         if (isKiller)
         {
             gameObject.GetComponent<KillerScript>().enabled = true;
+            civiIcon.SetActive(false);
+            killIcon.SetActive(true);
         }
 
         if (isPolice)
@@ -119,6 +124,8 @@ public class CivilianScript : MonoBehaviour
 
     private void DecayToSkeleton()
     {
+        killIcon.SetActive(false);
+        civiIcon.SetActive(false);
         Destroy(navMeshAgent);
         Destroy(people_WanderScript);
         Destroy(thirdPersonController);
@@ -132,7 +139,7 @@ public class CivilianScript : MonoBehaviour
         
         currentOutlook.SetActive(false);
         outlookPool.transform.GetChild(22).gameObject.SetActive(true);
-        
+        Destroy(gameObject.GetComponent<CharacterController>());
         Destroy(civilianScript);
     }
     
