@@ -9,6 +9,8 @@ public class AIManager : MonoBehaviour
 
     [Header("Settings")]
     public string civilianTag = "Civilian";
+
+    public bool isPoliceStartArrest;
     
     private List<CivilianScript> _allCivilians = new List<CivilianScript>();
 
@@ -32,6 +34,14 @@ public class AIManager : MonoBehaviour
         CivilianScript[] foundCivilians = Object.FindObjectsByType<CivilianScript>(FindObjectsSortMode.None);
         _allCivilians = new List<CivilianScript>(foundCivilians);
         _allCivilians = _allCivilians.OrderBy(x => Random.value).ToList();
+        
+        int player1Index = Random.Range(0, _allCivilians.Count);
+        _allCivilians[player1Index].BePossessed(true);
+        SetLayerRecursive(_allCivilians[player1Index].gameObject, LayerMask.GetMask("Ignore Raycast"));
+        
+        int player2Index = Random.Range(0, _allCivilians.Count);
+        _allCivilians[player2Index].BePossessed(false);
+        SetLayerRecursive(_allCivilians[player2Index].gameObject, LayerMask.GetMask("Ignore Raycast"));
 
         foreach (var civ in _allCivilians)
         {
@@ -91,6 +101,15 @@ public class AIManager : MonoBehaviour
             {
                 ai.SetMoving(canMove);
             }
+        }
+    }
+    
+    private void SetLayerRecursive(GameObject obj, int newLayer)
+    {
+        obj.layer = newLayer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursive(child.gameObject, newLayer);
         }
     }
 }

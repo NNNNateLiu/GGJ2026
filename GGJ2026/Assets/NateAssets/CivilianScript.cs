@@ -12,6 +12,7 @@ public class CivilianScript : MonoBehaviour
 {
     [SerializeField] private GameObject outlookPool;
     [SerializeField] private GameObject currentOutlook;
+    [SerializeField] private GameObject skeletonOutlook;
 
     [SerializeField] private GameObject aimedIndicator;
 
@@ -138,7 +139,7 @@ public class CivilianScript : MonoBehaviour
         gameObject.tag = "Untagged";
         
         currentOutlook.SetActive(false);
-        outlookPool.transform.GetChild(22).gameObject.SetActive(true);
+        skeletonOutlook.gameObject.SetActive(true);
         Destroy(gameObject.GetComponent<CharacterController>());
         Destroy(civilianScript);
     }
